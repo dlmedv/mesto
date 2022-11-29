@@ -1,4 +1,4 @@
-# Проект: Mesto[https://dlmedv.github.io/mesto/]
+# Проект: [Mesto](https://dlmedv.github.io/mesto/)
 
 ### Обзор
 
