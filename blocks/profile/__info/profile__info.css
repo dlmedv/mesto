@@ -1,7 +1,6 @@
 .profile__info {
     display: grid;
     grid-template-columns: 120px 1fr 24px;
-    grid-template-rows: repeat(2, 60px);
     grid-template-areas:
         "avatar title button"
         "avatar subtitle .";
@@ -11,12 +10,11 @@
 
 @media screen and (max-width: 1279px) {
     .profile__info {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 120px 1fr 14px;
+        grid-template-columns: 1fr 189px 1fr;
         grid-template-areas:
-            "avatar avatar"
-            "title button"
-            "subtitle subtitle";
+            "avatar avatar avatar"
+            "title  title button"
+            "subtitle subtitle subtitle";
         gap: 14px 10px;
     }
 }

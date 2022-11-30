@@ -9,6 +9,9 @@
     grid-area: button;
     align-self: end;
     transition: opacity 0.6s;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .profile__edit:hover {
@@ -19,5 +22,6 @@
     .profile__edit {
         width: 18px;
         height: 18px;
+        justify-self: start;
     }
 }

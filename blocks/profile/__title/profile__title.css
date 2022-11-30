@@ -6,15 +6,19 @@
     grid-area: title;
     margin: 0 0 -8px 12px;
     align-self: end;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 294px;
 }
 
 @media screen and (max-width: 1279px) {
     .profile__title {
         font-size: 27px;
         line-height: 33px;
-        white-space: nowrap;
-        margin: 8px 0 -7px 46px;
-        justify-self: center;
-        align-self: none;
+        margin: 12px 0 -7px 0;
+        justify-self: end;
+        align-self: center;
+        max-width: 189px;
     }
 }
