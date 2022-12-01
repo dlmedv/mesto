@@ -4,14 +4,13 @@ const popupClose = document.querySelector('.popup__close');
 let formElement = document.querySelector('.popup__form');
 let nameInput = document.querySelector('.popup__input_type_name');
 let aboutInput = document.querySelector('.popup__input_type_about');
-let saveButton = document.querySelector('.popup__button');
 const name = document.querySelector('.profile__title');
 const about = document.querySelector('.profile__subtitle');
 
 function openButton() {
     popup.classList.add('popup_active');
-    nameInput.value = 'Жак-Ив Кусто';
-    aboutInput.value = 'Исследователь океана';
+    nameInput.value = name.textContent;
+    aboutInput.value = about.textContent;
 }
 
 function closeButton() {
