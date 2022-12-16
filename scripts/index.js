@@ -1,11 +1,11 @@
 const editButton = document.querySelector('.profile__edit');
-const popup = document.querySelector('.popup');
-let formElement = document.querySelector('.popup__form');
+const popupEdit = document.querySelector('.popup_edit-card');
+const editForm = document.querySelector('.popup__form');
 const formAdd = document.querySelector('.popup__add-form');
 const inputAddTitle = document.querySelector('.popup__input_type_title');
 const inputAddLink = document.querySelector('.popup__input_type_link');
-let nameInput = document.querySelector('.popup__input_type_name');
-let aboutInput = document.querySelector('.popup__input_type_about');
+const nameInput = document.querySelector('.popup__input_type_name');
+const aboutInput = document.querySelector('.popup__input_type_about');
 const name = document.querySelector('.profile__title');
 const about = document.querySelector('.profile__subtitle');
 const elements = document.querySelector('.elements');
@@ -47,14 +47,11 @@ const initialCards = [
 
 //новый массив
 const arrayCards = initialCards.map(function (item) {
-    return {
-        name: item.name,
-        link: item.link,
-    }
+    return item;
 })
 
 //создание карточки
-const createCards = (cardTitle, cardLink) => {
+const createCard = (cardTitle, cardLink) => {
     const template = document.querySelector('#element-template').content;
     const cardElement = template.querySelector('.element').cloneNode(true);
     const cardElementPhoto = cardElement.querySelector('.element__photo');
@@ -68,11 +65,13 @@ const createCards = (cardTitle, cardLink) => {
         evt.preventDefault();
         cardElement.remove();
     });
+
     //кнопка лайк
     cardElement.querySelector('.element__icon').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__icon_active');
 
     });
+
     //попап фото
     cardElementPhoto.addEventListener('click', function () {
         openPopup(popupPhoto);
@@ -83,24 +82,24 @@ const createCards = (cardTitle, cardLink) => {
 
     return cardElement;
 };
+
 //добавление карточки
-const addCards = (Card) => {
+const addCard = (Card) => {
     elements.prepend(Card);
-}
-arrayCards.forEach((item) => {
-    addCards(createCards(item.name, item.link));
+};
+initialCards.forEach((item) => {
+    addCard(createCard(item.name, item.link));
 });
 
 //попап открытие 
 function openPopup(popupElement, title, link) {
     popupElement.classList.add('popup_active');
-    nameInput.value = title;
-    aboutInput.value = link;
-}
+};
 
 editButton.addEventListener('click', function () {
-    openPopup(popup, name.textContent, about.textContent)
-
+    openPopup(popupEdit, 
+        nameInput.value = name.textContent, 
+        aboutInput.value = about.textContent);
 });
 
 profileAdd.addEventListener('click', function () {
@@ -109,35 +108,36 @@ profileAdd.addEventListener('click', function () {
 });
 
 //попап закрытие
-function closeButton(elementClose) {
+function closePopup(elementClose) {
     elementClose.classList.remove('popup_active')
 }
 
 closeButtons.forEach(btn => btn.addEventListener('click', () => {
     const popup = btn.closest('.popup')
-    closeButton(popup)
+    closePopup(popup)
 }));
 
 // сохранение данных в попап edit
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
     evt.preventDefault(evt);
     name.textContent = nameInput.value;
     about.textContent = aboutInput.value;
-    closeButton(popup);
+    closePopup(popupEdit);
 }
-formElement.addEventListener('submit', handleFormSubmit);
+editForm.addEventListener('submit', handleEditFormSubmit);
 
 // добавление карточки через форму 
-function FormSubmitAdd(evt) {
+function handleAddFormSubmit(evt) {
     evt.preventDefault(evt);
     const inputTitle = inputAddTitle.value;
     const inputLink = inputAddLink.value;
-    inputAddTitle.value = "";
-    inputAddLink.value = "";
-    addCards(createCards(inputTitle, inputLink));
-    closeButton(popupAdd);
+    /*inputAddTitle.value = "";
+    inputAddLink.value = "";*/
+    evt.target.reset()
+    addCard(createCard(inputTitle, inputLink));
+    closePopup(popupAdd);
 }
-popupAdd.addEventListener('submit', FormSubmitAdd);
+popupAdd.addEventListener('submit', handleAddFormSubmit);
 
 
 
