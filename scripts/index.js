@@ -45,11 +45,6 @@ const initialCards = [
     }
 ];
 
-//новый массив
-const arrayCards = initialCards.map(function (item) {
-    return item;
-})
-
 //создание карточки
 const createCard = (cardTitle, cardLink) => {
     const template = document.querySelector('#element-template').content;
@@ -92,14 +87,14 @@ initialCards.forEach((item) => {
 });
 
 //попап открытие 
-function openPopup(popupElement, title, link) {
+function openPopup(popupElement) {
     popupElement.classList.add('popup_active');
 };
 
 editButton.addEventListener('click', function () {
-    openPopup(popupEdit, 
-        nameInput.value = name.textContent, 
-        aboutInput.value = about.textContent);
+    openPopup(popupEdit);
+        nameInput.value = name.textContent; 
+        aboutInput.value = about.textContent;
 });
 
 profileAdd.addEventListener('click', function () {
@@ -108,8 +103,8 @@ profileAdd.addEventListener('click', function () {
 });
 
 //попап закрытие
-function closePopup(elementClose) {
-    elementClose.classList.remove('popup_active')
+function closePopup(popupElement) {
+    popupElement.classList.remove('popup_active')
 }
 
 closeButtons.forEach(btn => btn.addEventListener('click', () => {
