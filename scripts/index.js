@@ -89,28 +89,47 @@ initialCards.forEach((item) => {
 //попап открытие 
 function openPopup(popupElement) {
     popupElement.classList.add('popup_active');
+    document.addEventListener("keydown", closePopupEsc);
+    document.addEventListener('click', closePopupOverflow);
 };
 
 editButton.addEventListener('click', function () {
     openPopup(popupEdit);
-        nameInput.value = name.textContent; 
-        aboutInput.value = about.textContent;
+    nameInput.value = name.textContent;
+    aboutInput.value = about.textContent;
 });
 
 profileAdd.addEventListener('click', function () {
     openPopup(popupAdd)
-
+    setButtonState(popupAdd)
 });
 
 //попап закрытие
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_active')
+    document.removeEventListener('keydown', closePopupEsc);
+    document.removeEventListener('click', closePopupOverflow);
 }
 
 closeButtons.forEach(btn => btn.addEventListener('click', () => {
     const popup = btn.closest('.popup')
     closePopup(popup)
 }));
+
+// закрытие попап на esc
+function closePopupEsc(evt) {
+    if (evt.key === "Escape") {
+        const popupEsc = document.querySelector('.popup_active')
+        closePopup(popupEsc);
+    }
+}
+
+//закрытие на overflow
+function closePopupOverflow(evt) {
+    if (evt.target.classList.contains('popup')) {
+        closePopup(evt.target);
+    }
+}
 
 // сохранение данных в попап edit
 function handleEditFormSubmit(evt) {
@@ -126,16 +145,11 @@ function handleAddFormSubmit(evt) {
     evt.preventDefault(evt);
     const inputTitle = inputAddTitle.value;
     const inputLink = inputAddLink.value;
-    /*inputAddTitle.value = "";
-    inputAddLink.value = "";*/
     evt.target.reset()
     addCard(createCard(inputTitle, inputLink));
     closePopup(popupAdd);
 }
 popupAdd.addEventListener('submit', handleAddFormSubmit);
-
-
-
 
 
 
