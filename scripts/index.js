@@ -17,7 +17,8 @@ const popupAdd = document.querySelector('.popup_add-card');
 const popupPhoto = document.querySelector('.popup_photo');
 const popupTitlePhoto = document.querySelector('.popup__image');
 const popupLinkPhoto = document.querySelector('.popup__title-img');
-const closeButtons = document.querySelectorAll('.popup__close')
+const closeButtons = document.querySelectorAll('.popup__close');
+const template = document.querySelector('#element-template').content;
 const initialCards = [
     {
         name: 'Архыз',
@@ -47,7 +48,6 @@ const initialCards = [
 
 //создание карточки
 const createCard = (cardTitle, cardLink) => {
-    const template = document.querySelector('#element-template').content;
     const cardElement = template.querySelector('.element').cloneNode(true);
     const cardElementPhoto = cardElement.querySelector('.element__photo');
     cardElementPhoto.src = cardLink;
@@ -97,11 +97,13 @@ editButton.addEventListener('click', function () {
     openPopup(popupEdit);
     nameInput.value = name.textContent;
     aboutInput.value = about.textContent;
+    clearInputError(popupEdit);
 });
 
 profileAdd.addEventListener('click', function () {
-    openPopup(popupAdd)
-    setButtonState(popupAdd)
+    openPopup(popupAdd);
+    setButtonState(popupAdd);
+    clearInputError(popupAdd);
 });
 
 //попап закрытие

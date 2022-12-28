@@ -39,6 +39,14 @@ function setButtonState(popupElement) {
     toggleButtonState(inputList, buttonElement, validationConfig);
 }
 
+function clearInputError (popupElement) {
+    const formElement = popupElement.querySelector(validationConfig.formSelector);
+    const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+    inputList.forEach((inputElement)=>{
+        hideInputError(formElement, inputElement, validationConfig);
+    })
+}
+
 function hasInvalidInput(inputList) {
     return inputList.some((inputElement) => (!inputElement.validity.valid));
 }

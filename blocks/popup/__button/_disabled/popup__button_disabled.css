@@ -5,7 +5,7 @@
     outline: none;
     margin: 18px 0 36px 0;
     width: 358px;
-    min-height: 50px;
+    height: 50px;
     color: #C4C4C4;
     font-weight: 400;
     font-size: 18px;
@@ -15,7 +15,7 @@
 @media screen and (max-width: 1279px) {
     .popup__button_disabled {
         width: 238px;
-        min-height: 46px;
+        height: 46px;
         margin: 15px 0 25px 0;
         font-size: 14px;
         line-height: 17px;
