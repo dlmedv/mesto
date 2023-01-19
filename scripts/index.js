@@ -113,7 +113,7 @@ function closePopupOverflow(evt) {
     }
 }
 
-//валидация 
+//валидация формы
 import FormValidator from './FormValidator.js';
 import { validationConfig } from './constants.js';
 
