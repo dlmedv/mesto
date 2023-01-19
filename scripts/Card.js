@@ -1,8 +1,5 @@
 //класс Card, который создаёт карточку с текстом и ссылкой на изображение:
-import { openPopup } from './index.js';
-import { popupPhoto } from './index.js';
-import { popupLinkPhoto } from './index.js';
-import { popupTitlePhoto } from './index.js';
+import { openPopupImg } from "./index.js";
 
 export default class Card {
     constructor(data, templateSelector) {
@@ -17,7 +14,7 @@ export default class Card {
             .content
             .querySelector('.element')
             .cloneNode(true)
-        return cardElement
+        return cardElement;
     }
     _setEventListeners() {
         this._element
@@ -35,11 +32,12 @@ export default class Card {
         this._element
             .querySelector('.element__photo')
             .addEventListener('click', () => {
-                openPopup(popupPhoto);
-                popupTitlePhoto.src = this._link;
-                popupTitlePhoto.alt = this._name;
-                popupLinkPhoto.textContent = this._name;
+                this._getCardPopupImg();
             });
+    }
+
+    _getCardPopupImg() {
+        openPopupImg(this._name, this._link)
     }
 
     generateCard() {

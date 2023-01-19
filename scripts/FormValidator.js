@@ -3,8 +3,8 @@ export default class FormValidator {
     constructor(config, formElement) {
         this._config = config;
         this._formElement = formElement;
-        this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-        this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
+        this._inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+        this._buttonElement = formElement.querySelector(config.submitButtonSelector);
     }
 
     _hideInputError(inputElement) {
@@ -22,21 +22,11 @@ export default class FormValidator {
     }
 
     _checkInputValidity(inputElement) {
-        if (inputElement.validity.valid) {
-            this._hideInputError(inputElement);
+        if (!inputElement.validity.valid) {
+            this._showInputError(inputElement, inputElement.validationMessage)
         } else {
-            this._showInputError(inputElement);
+            this._hideInputError(inputElement)
         }
-    }
-
-    _setButtonState() {
-        this._toggleButtonState();
-    }
-
-    _clearInputError() {
-        this._inputList.forEach((inputElement) => {
-            this._hideInputError(inputElement);
-        })
     }
 
     _hasInvalidInput() {
@@ -56,34 +46,27 @@ export default class FormValidator {
     _setEventListeners() {
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                this._checkInputValidity();
+                this._checkInputValidity(inputElement);
                 this._toggleButtonState();
             })
         })
     }
 
     enableValidation() {
-        this._formElement.forEach(() => {
-            this._setEventListeners();
-        })
+        this._setEventListeners();
+        this._formElement.addEventListener("submit", (e) => {
+            e.preventDefault();
+        });
+    }
+
+    setButtonState() {
+        this._toggleButtonState();
+    }
+
+    clearInputError() {
+        this._hideInputError();
     }
 }
-
-/*const formValidAdd = new FormValidator(validationConfig, formAdd)
-formValidAdd.enableValidation();
-const formValidEdit = new FormValidator(validationConfig, editForm)
-formValidEdit.enableValidation()*/
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
