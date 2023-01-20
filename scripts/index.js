@@ -76,7 +76,6 @@ editButton.addEventListener('click', function () {
 profileAdd.addEventListener('click', function () {
     openPopup(popupAdd);
     formValidAdd.setButtonState();
-    formValidAdd.clearInputError();
 });
 
 export function openPopupImg(link, name) {
