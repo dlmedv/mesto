@@ -1,5 +1,5 @@
 //класс Card, который создаёт карточку с текстом и ссылкой на изображение
-import { openPopupImg } from "./index.js";
+import { openPopupImg } from "./utils.js";
 
 export default class Card {
     constructor(data, templateSelector) {
@@ -20,13 +20,12 @@ export default class Card {
         this._element
             .querySelector('.element__icon-trash')
             .addEventListener('click', (evt) => {
-                evt.preventDefault();
-                this._element.remove();
+                this._deleteCard(evt);
             });
         this._element
             .querySelector('.element__icon')
             .addEventListener('click', (evt) => {
-                evt.target.classList.toggle('element__icon_active');
+                this._toggleCardLike(evt);
             })
 
         this._element
@@ -36,6 +35,15 @@ export default class Card {
             });
     }
 
+    _deleteCard(evt) {
+        evt.preventDefault();
+        this._element.remove();
+    }
+
+    _toggleCardLike(evt) {
+        evt.target.classList.toggle('element__icon_active');
+    }
+
     _getCardPopupImg() {
         openPopupImg(this._name, this._link)
     }
@@ -43,9 +51,9 @@ export default class Card {
     generateCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
-
-        this._element.querySelector('.element__photo').src = this._link;
-        this._element.querySelector('.element__photo').alt = this._name;
+        const elementPhoto = this._element.querySelector('.element__photo');
+        elementPhoto.src = this._link;
+        elementPhoto.alt = this._name;
         this._element.querySelector('.element__title').textContent = this._name;
 
         return this._element;
