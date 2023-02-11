@@ -1,18 +1,19 @@
 export default class UserInfo {
-    constructor ({profileNameUser, profileAboutUser}) {
-        this._profileNameUser = profileNameUser;
-        this._profileAboutUser = profileAboutUser;
+    constructor ({user, about }) {
+        this._user = user;
+        this._about = about;
     }
 
     getUserInfo = () => { // возвращаем объект с данными пользователя
        return {
-        profileNameUser: this._profileNameUser.textContent,
-        profileAboutUser: this._profileAboutUser.textContent,
+        user: this._user.textContent,
+        about: this._about.textContent,
         };
     }
 
     setUserInfo = (userData) => { // принимаем новые данные пользователя
-        this._profileNameUser.textContent = userData.user;
-        this._profileAboutUser.textContent = userData.about;
+        const {user, about} = userData;
+        this._user.textContent = user;
+        this._about.textContent = about;
     }
 }

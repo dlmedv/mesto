@@ -39,6 +39,7 @@ export default class Card {
     _deleteCard = (evt) => {
         evt.preventDefault();
         this._element.remove();
+        this._element = null;
     }
 
     _toggleCardLike = (evt) => {

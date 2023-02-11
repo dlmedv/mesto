@@ -17,8 +17,8 @@ export const popupAdd = document.querySelector('.popup_add-card');
 export const buttonsClose = document.querySelectorAll('.popup__close');
 
 export const usersDataEdit = {
-    profileNameUser: '.profile__title',
-    profileAboutUser: '.profile__subtitle'
+    user: name,
+    about: about
 };
 
 

@@ -12,28 +12,29 @@ import {
     popupPhoto, popupTitlePhoto, popupLinkPhoto, popupProfileOpenButton,
     popupEditProfile, formEditProfile, formAdd, inputAddTitle, inputAddLink,
     nameInput, aboutInput, name, about, elements, profileAdd, popupAdd,
-    buttonsClose,
+    buttonsClose, usersDataEdit
 } from '../utils/utils.js';
+
+const createCard = (item) => {
+    const card = new Card(item, '#element-template',
+    () => { popupImage.open(item.link, item.name) });
+    const cardElement = card.generateCard();
+    return cardElement;
+}
 
 const cardList = new Section(
     {
         items: initialCards,
         renderer: (item) => {
-            const card = new Card(item, '#element-template',
-                () => { popupImage.open(item.link, item.name) });
-            const cardElement = card.generateCard();
-
-            cardList.addItem(cardElement);
+            const card = createCard(item);
+            cardList.addItem(card);
         }
     }
     , '.elements')
 cardList.renderItems()
 
 // отображение информации о пользователи 
-const userInfo = new UserInfo({
-    profileNameUser: nameInput,
-    profileAboutUser: aboutInput
-});
+const userInfo = new UserInfo(usersDataEdit);
 
 
 const popupAboutUsers = new PopupWithForm(
@@ -46,11 +47,8 @@ const popupAboutUsers = new PopupWithForm(
 const popupAddCard = new PopupWithForm(
     popupAdd,
     (item) => {
-        const card = new Card(item, '#element-template',
-            () => { popupImage.open(item.link, item.name) });
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement);
-
+        const card = createCard(item);
+        cardList.addItem(card);
     });
 
 const popupImage = new PopupWithImage(popupPhoto);
@@ -59,9 +57,9 @@ const popupImage = new PopupWithImage(popupPhoto);
 popupProfileOpenButton.addEventListener('click',
     (evt) => {
         evt.preventDefault();
-        userInfo.getUserInfo();
-        nameInput.value = name.textContent;
-        aboutInput.value = about.textContent;
+       const {user, about} = userInfo.getUserInfo();
+        nameInput.value = user;
+        aboutInput.value = about;
         popupAboutUsers.open();
         formValidEdit.clearInputError();
     });
