@@ -21,6 +21,11 @@ export const usersDataEdit = {
     about: about
 };
 
+export const popupSelectors = {
+    popupAddCard: '.popup_add-card',
+    popupEditProfile: '.popup_edit-card',
+    popupWithImg: '.popup_photo',
+}
 
 
 

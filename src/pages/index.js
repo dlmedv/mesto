@@ -12,7 +12,7 @@ import {
     popupPhoto, popupTitlePhoto, popupLinkPhoto, popupProfileOpenButton,
     popupEditProfile, formEditProfile, formAdd, inputAddTitle, inputAddLink,
     nameInput, aboutInput, name, about, elements, profileAdd, popupAdd,
-    buttonsClose, usersDataEdit
+    buttonsClose, usersDataEdit, popupSelectors
 } from '../utils/utils.js';
 
 const createCard = (item) => {
@@ -38,20 +38,20 @@ const userInfo = new UserInfo(usersDataEdit);
 
 
 const popupAboutUsers = new PopupWithForm(
-    popupEditProfile,
+    popupSelectors.popupEditProfile,
     (userData) => {
         userInfo.setUserInfo(userData);
     }
 );
 
 const popupAddCard = new PopupWithForm(
-    popupAdd,
+    popupSelectors.popupAddCard,
     (item) => {
         const card = createCard(item);
         cardList.addItem(card);
     });
 
-const popupImage = new PopupWithImage(popupPhoto);
+const popupImage = new PopupWithImage(popupSelectors.popupWithImg);
 
 //попап редактирования профиля
 popupProfileOpenButton.addEventListener('click',
