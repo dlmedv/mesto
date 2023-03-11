@@ -15,21 +15,55 @@ export const elements = document.querySelector('.elements');
 export const profileAdd = document.querySelector('.profile__add');
 export const popupAdd = document.querySelector('.popup_add-card');
 export const buttonsClose = document.querySelectorAll('.popup__close');
-
+export let userId 
+export const popupButtonAvatar = document.querySelector('.profile__icon-edit');
+export const formAvatar = document.querySelector('.popup__avatar-form');
+export const inputAvatar = document.querySelector('.popup__input_type_avatar')
 export const usersDataEdit = {
-    user: name,
-    about: about
+    name: name,
+    about: about,
+    avatar: avatar,
 };
 
 export const popupSelectors = {
     popupAddCard: '.popup_add-card',
     popupEditProfile: '.popup_edit-card',
     popupWithImg: '.popup_photo',
+    popupConfirmDelete: '.popup_delete-card',
+    popupAvatar: '.popup_avatar'
 }
 
+export const options = {
+    url: 'https://mesto.nomoreparties.co/v1/cohort-60',
+    headers: {
+        authorization: 'e24dd49a-4101-455b-9fb5-311038dfd707',
+        'Content-Type': 'application/json'
+    }
+}
 
+ export function changeButtonText(button, buttonText) {
+    button.textContent = buttonText;
+  }
+/*
+export function changeButtonText(isLoad, button, typeForm) {
+    if (isLoad) {
+        document.querySelector(button).disabled = true;
 
+        if (typeForm) {
+            button.textContent = 'Сохранение...';
+        } else {
+            button.textContent = 'Удаление...';
+        }
+    } else {
+        document.querySelector(button).disabled = false;
 
+        if (typeForm) {
+            document.querySelector(button).textContent = 'Сохранить';
+        } else {
+            document.querySelector(button).textContent = 'Да';
+        }
+    }
+} */
 
 
 

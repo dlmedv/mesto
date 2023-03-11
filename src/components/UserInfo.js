@@ -1,19 +1,28 @@
 export default class UserInfo {
-    constructor ({user, about }) {
-        this._user = user;
+    constructor ({name, about, avatar, _userId}) {
+        this._name = name;
         this._about = about;
+        this._avatar = avatar;
+        this._userId = _userId;
     }
 
     getUserInfo = () => { // возвращаем объект с данными пользователя
        return {
-        user: this._user.textContent,
+        name: this._name.textContent,
         about: this._about.textContent,
+        avatar: this._avatar.src,
         };
     }
 
     setUserInfo = (userData) => { // принимаем новые данные пользователя
-        const {user, about} = userData;
-        this._user.textContent = user;
+        const {name, about, avatar} = userData;
+        this._name.textContent = name;
         this._about.textContent = about;
+        this._avatar.src = avatar;
+        this._avatar.alt = name;
+    }
+
+    getUserId() {
+        return this._userId;
     }
 }
