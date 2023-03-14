@@ -14,10 +14,10 @@ import {
     popupPhoto, popupTitlePhoto, popupLinkPhoto, popupProfileOpenButton,
     popupEditProfile, formEditProfile, formAdd, inputAddTitle, inputAddLink,
     nameInput, aboutInput, name, about, elements, profileAdd, popupAdd,
-    buttonsClose, usersDataEdit, popupSelectors, options, buttonLoadingText, submitButton, popupButtonAvatar, formAvatar, inputAvatar
+    buttonsClose, usersDataEdit, popupSelectors, options, buttonLoadingText, submitButton, popupButtonAvatar, formAvatar, inputAvatar, buttonAboutUser
 } from '../utils/utils.js';
 import Api from '../components/Api.js';
-import { changeButtonText } from '../utils/utils.js';
+
 let userId;
 
 const api = new Api(options);
@@ -40,30 +40,35 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
 const createCard = (item) => {
     const card = new Card(item, '#element-template',
         () => { popupImage.open(item.link, item.name) },
-        handleConfirmClick, 
+        handleConfirmClick,
         (cardId) => {
-            if (card.isLiked()) {
+            if (card.isLike) {
                 api.deleteLikes(cardId)
-                .then(res => {
-                  card.setNumbersLike(res.likes);
+                .then((res) => {
+                  card.getLikes(res.likes);
+                  card.toggleIsLike();
+                  card.toggleLike();
                 })
                 .catch((err) => {
                   console.log(err);
                 });
               } else {
-                api.setLikes(cardId)
-                .then(res => {
-                    card.setNumbersLike(res.likes);
-                })
-                .catch((err) => {
-                  console.log(err);
-                })
+                  api.setLikes(cardId)
+                  .then((res) => {
+                      card.getLikes(res.likes);
+                      card.toggleIsLike();
+                      card.toggleLike();
+                  })
+                  .catch((err) => {
+                      console.log(err);
+                  });
               }
         }
         ,userId)
     const cardElement = card.generateCard();
     return cardElement;
 }
+
 
 function handleConfirmClick(cardId, cardItem) {
     popupConfirmDeleteCard.open(cardId, cardItem)
@@ -82,19 +87,21 @@ const cardList = new Section(
 // отображение информации о пользователи 
 const userInfo = new UserInfo(usersDataEdit);
 
+
 const popupAboutUsers = new PopupWithForm(
     popupSelectors.popupEditProfile,
     (userData) => {
-        popupAboutUsers.changeButtonText('Сохранение...')
+        popupAboutUsers.changeText('Сохранение...')
         api.setInfoUser(userData)
             .then((res) => {
+                console.log(res)
                 userInfo.setUserInfo(res);
             })
             .catch((err) => {
                 console.log(err)
             })
             .finally(() => {
-                popupAboutUsers.changeButtonText('Сохранить')
+                popupAboutUsers.changeText('Сохранить')
             })
     },
 );
@@ -102,7 +109,6 @@ const popupAboutUsers = new PopupWithForm(
 const popupAddCard = new PopupWithForm(
     popupSelectors.popupAddCard,
     (item) => {
-        popupAddCard.changeButtonText('Сохранение...');
         api.createNewCard(item)
             .then((res) => {
                 const card = createCard(res);
@@ -112,7 +118,7 @@ const popupAddCard = new PopupWithForm(
                 console.log(err)
             })
             .finally(() => {
-                popupAddCard.changeButtonText('Сохранить')
+                
             })
     });
 
@@ -122,7 +128,7 @@ const popupConfirmDeleteCard = new PopupConfirmDelete(
 
         api.deleteCard(cardId)
             .then(() => {
-                popupConfirmDeleteCard.changeButtonText('Удаление...')
+                
             })
             .then(() => {
                 cardItem.delete();
@@ -134,7 +140,7 @@ const popupConfirmDeleteCard = new PopupConfirmDelete(
                 console.log(err);
             })
             .finally(() => {
-                popupConfirmDeleteCard.changeButtonText('Да')
+                
             })
 
     }

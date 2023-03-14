@@ -3,6 +3,7 @@ export const popupTitlePhoto = document.querySelector('.popup__image');
 export const popupLinkPhoto = document.querySelector('.popup__title-img');
 export const popupProfileOpenButton = document.querySelector('.profile__edit');
 export const popupEditProfile = document.querySelector('.popup_edit-card');
+export const buttonAboutUser = popupEditProfile.querySelector('.popup__button')
 export const formEditProfile = document.querySelector('.popup__form');
 export const formAdd = document.querySelector('.popup__add-form');
 export const inputAddTitle = document.querySelector('.popup__input_type_title');
@@ -41,29 +42,7 @@ export const options = {
     }
 }
 
- export function changeButtonText(button, buttonText) {
-    button.textContent = buttonText;
-  }
-/*
-export function changeButtonText(isLoad, button, typeForm) {
-    if (isLoad) {
-        document.querySelector(button).disabled = true;
 
-        if (typeForm) {
-            button.textContent = 'Сохранение...';
-        } else {
-            button.textContent = 'Удаление...';
-        }
-    } else {
-        document.querySelector(button).disabled = false;
-
-        if (typeForm) {
-            document.querySelector(button).textContent = 'Сохранить';
-        } else {
-            document.querySelector(button).textContent = 'Да';
-        }
-    }
-} */
 
 
 

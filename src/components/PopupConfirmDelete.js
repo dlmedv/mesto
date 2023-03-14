@@ -7,10 +7,6 @@ export default class PopupConfirmDelete extends Popup {
         this._button = this._popup.querySelector('.popup__button')
         this._form = this._popup.querySelector('.popup__form');
     }
-
-    changeButtonText(text) {
-        this._button.textContent = text;
-    }
     
     open(cardId, cardItem) {
         super.open();
