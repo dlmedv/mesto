@@ -1,8 +1,7 @@
 
 import Card from '../components/Card.js';
-//import { initialCards } from '../constants/constants.js';
 import FormValidator from '../components/FormValidator.js';
-import { initialCards, validationConfig } from '../constants/constants.js';
+import { validationConfig } from '../constants/constants.js';
 import './index.css';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -11,10 +10,11 @@ import UserInfo from '../components/UserInfo.js'
 import PopupConfirmDelete from '../components/PopupConfirmDelete.js'
 
 import {
-    popupPhoto, popupTitlePhoto, popupLinkPhoto, popupProfileOpenButton,
-    popupEditProfile, formEditProfile, formAdd, inputAddTitle, inputAddLink,
-    nameInput, aboutInput, name, about, elements, profileAdd, popupAdd,
-    buttonsClose, usersDataEdit, popupSelectors, options, buttonLoadingText, submitButton, popupButtonAvatar, formAvatar, inputAvatar, buttonAboutUser
+     popupProfileOpenButton,
+     formEditProfile, formAdd,
+    nameInput, aboutInput,  profileAdd, 
+    usersDataEdit, popupSelectors, options,
+      popupButtonAvatar, formAvatar
 } from '../utils/utils.js';
 import Api from '../components/Api.js';
 
@@ -82,7 +82,6 @@ const cardList = new Section(
         }
     }
     , '.elements')
-//cardList.renderItems() 
 
 // отображение информации о пользователи 
 const userInfo = new UserInfo(usersDataEdit);
@@ -94,14 +93,14 @@ const popupAboutUsers = new PopupWithForm(
         popupAboutUsers.changeText('Сохранение...')
         api.setInfoUser(userData)
             .then((res) => {
-                console.log(res)
                 userInfo.setUserInfo(res);
             })
             .catch((err) => {
                 console.log(err)
             })
             .finally(() => {
-                popupAboutUsers.changeText('Сохранить')
+                popupAboutUsers.changeText('Сохранить');
+                popupAboutUsers.close()
             })
     },
 );
@@ -109,6 +108,7 @@ const popupAboutUsers = new PopupWithForm(
 const popupAddCard = new PopupWithForm(
     popupSelectors.popupAddCard,
     (item) => {
+        popupAddCard.changeText('Сохранение...')
         api.createNewCard(item)
             .then((res) => {
                 const card = createCard(res);
@@ -118,14 +118,15 @@ const popupAddCard = new PopupWithForm(
                 console.log(err)
             })
             .finally(() => {
-                
+                popupAddCard.changeText('Сохранить')
+                popupAddCard.close()
             })
     });
 
 const popupConfirmDeleteCard = new PopupConfirmDelete(
     popupSelectors.popupConfirmDelete,
     (cardId, cardItem,) => {
-
+        popupConfirmDeleteCard.changeText('Удаление...')
         api.deleteCard(cardId)
             .then(() => {
                 
@@ -140,7 +141,8 @@ const popupConfirmDeleteCard = new PopupConfirmDelete(
                 console.log(err);
             })
             .finally(() => {
-                
+                popupConfirmDeleteCard.changeText('Да')
+                popupConfirmDeleteCard.close()
             })
 
     }
@@ -152,6 +154,7 @@ const popupImage = new PopupWithImage(popupSelectors.popupWithImg);
 const popupUserAvatar = new PopupWithForm(
     popupSelectors.popupAvatar,
     (newAvatarLink) => {
+        popupUserAvatar.changeText('Сохранение...')
         api.setUserAvatar(newAvatarLink.link)
             .then((res) => {
                 userInfo.setUserInfo(res)
@@ -161,6 +164,10 @@ const popupUserAvatar = new PopupWithForm(
             })
             .catch((err) => {
                 console.log(err);
+            })
+            .finally(() => {
+                popupUserAvatar.changeText('Сохранить')
+                popupUserAvatar.close()
             })
     }
 )

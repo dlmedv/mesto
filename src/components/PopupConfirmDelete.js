@@ -7,6 +7,10 @@ export default class PopupConfirmDelete extends Popup {
         this._button = this._popup.querySelector('.popup__button')
         this._form = this._popup.querySelector('.popup__form');
     }
+
+    changeText(text) {
+        this._button.textContent = text;
+    }
     
     open(cardId, cardItem) {
         super.open();
@@ -21,7 +25,6 @@ export default class PopupConfirmDelete extends Popup {
         .addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._handleConfirmClick(this._cardId, this._cardItem, this._button)
-            super.close()
             this._cardItem.remove()
         })
     }
