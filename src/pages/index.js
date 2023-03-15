@@ -45,7 +45,7 @@ const createCard = (item) => {
             if (card.isLike) {
                 api.deleteLikes(cardId)
                 .then((res) => {
-                  card.getLikes(res.likes);
+                  card.setLikes(res.likes);
                   card.toggleIsLike();
                   card.toggleLike();
                 })
@@ -55,7 +55,7 @@ const createCard = (item) => {
               } else {
                   api.setLikes(cardId)
                   .then((res) => {
-                      card.getLikes(res.likes);
+                      card.setLikes(res.likes);
                       card.toggleIsLike();
                       card.toggleLike();
                   })
@@ -95,12 +95,15 @@ const popupAboutUsers = new PopupWithForm(
             .then((res) => {
                 userInfo.setUserInfo(res);
             })
+            .then(() => {
+                popupAboutUsers.close()
+            })
             .catch((err) => {
                 console.log(err)
             })
             .finally(() => {
                 popupAboutUsers.changeText('Сохранить');
-                popupAboutUsers.close()
+                
             })
     },
 );
@@ -114,12 +117,14 @@ const popupAddCard = new PopupWithForm(
                 const card = createCard(res);
                 cardList.addItem(card);
             })
+            .then(() => {
+                popupAddCard.close()
+            })
             .catch((err) => {
                 console.log(err)
             })
             .finally(() => {
                 popupAddCard.changeText('Сохранить')
-                popupAddCard.close()
             })
     });
 
@@ -129,10 +134,7 @@ const popupConfirmDeleteCard = new PopupConfirmDelete(
         popupConfirmDeleteCard.changeText('Удаление...')
         api.deleteCard(cardId)
             .then(() => {
-                
-            })
-            .then(() => {
-                cardItem.delete();
+                cardItem.remove();
             })
             .then(() => {
                 popupConfirmDeleteCard.close();
@@ -142,7 +144,6 @@ const popupConfirmDeleteCard = new PopupConfirmDelete(
             })
             .finally(() => {
                 popupConfirmDeleteCard.changeText('Да')
-                popupConfirmDeleteCard.close()
             })
 
     }
@@ -167,7 +168,6 @@ const popupUserAvatar = new PopupWithForm(
             })
             .finally(() => {
                 popupUserAvatar.changeText('Сохранить')
-                popupUserAvatar.close()
             })
     }
 )
@@ -209,6 +209,7 @@ const formValidAvatar = new FormValidator(validationConfig, formAvatar);
 formValidAdd.enableValidation();
 formValidEdit.enableValidation();
 formValidAvatar.enableValidation();
+
 
 
 

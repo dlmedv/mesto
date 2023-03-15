@@ -35,7 +35,7 @@ export default class Card {
     }
 
     //метод получения лайков 
-    getLikes(likes) {
+    setLikes(likes) {
         this._likes = likes; //в переменную получаем новое кол-во лайков
         this._counterLikes.textContent = this._likes.length;; //записываем это кол-во в ячейку
     }

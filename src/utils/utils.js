@@ -21,9 +21,9 @@ export const popupButtonAvatar = document.querySelector('.profile__icon-edit');
 export const formAvatar = document.querySelector('.popup__avatar-form');
 export const inputAvatar = document.querySelector('.popup__input_type_avatar')
 export const usersDataEdit = {
-    name: name,
-    about: about,
-    avatar: avatar,
+    name: '.profile__title',
+    about: '.profile__subtitle',
+    avatar: '.profile__avatar',
 };
 
 export const popupSelectors = {
@@ -45,65 +45,4 @@ export const options = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//попап открытие 
-export function openPopup(popupElement) {
-    popupElement.classList.add('popup_active');
-    document.addEventListener("keydown", closePopupEsc);
-    document.addEventListener('click', closePopupOverflow);
-};
-
-export function openPopupImg(link, name) {
-    openPopup(popupPhoto);
-    popupTitlePhoto.src = name;
-    popupTitlePhoto.alt = name;
-    popupLinkPhoto.textContent = link;
-}
-
-//попап закрытие
-export function closePopup(popupElement) {
-    popupElement.classList.remove('popup_active')
-    document.removeEventListener('keydown', closePopupEsc);
-    document.removeEventListener('mousedown', closePopupOverflow);
-}
-
-// закрытие попап на esc
-export function closePopupEsc(evt) {
-    if (evt.key === "Escape") {
-        const popupEsc = document.querySelector('.popup_active')
-        closePopup(popupEsc);
-    }
-}
-
-//закрытие на overflow
-export function closePopupOverflow(evt) {
-    if (evt.target.classList.contains('popup')) {
-        closePopup(evt.target);
-    }
-}
 
